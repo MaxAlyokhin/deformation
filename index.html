@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115448094-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+
+      gtag('config', 'UA-115448094-3')
+    </script>
+
+    <title>"Web Deformation"</title>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <meta name="author" content="Max Alyokhin" />
+    <meta name="keywords" content="kiuss, кюс, new media art, net art, creative coding" />
+    <meta name="description" content="Aesthetic processor of html-code" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Web Deformation" />
+    <meta property="og:url" content="https://deformation.stranno.su/" />
+    <meta property="og:title" content="Web Deformation" />
+    <meta property="og:description" content="Aesthetic processor of html-code" />
+    <meta property="og:image" content="favicons/og.png" />
+    <meta property="og:image:width" content="968" />
+    <meta property="og:image:height" content="504" />
+
+    <link rel="shortcut icon" type="image/png" href="https://deformation.stranno.su/favicons/w.png" id="favicon-animation" />
+
+    <!-- Анимация favicon -->
+    <script>
+      const favicons = ['favicons/w.png', 'favicons/e.png', 'favicons/b.png', 'favicons/d.png', 'favicons/e.png', 'favicons/f.png', 'favicons/o.png', 'favicons/r.png', 'favicons/m.png', 'favicons/a.png', 'favicons/t.png', 'favicons/i.png', 'favicons/o.png', 'favicons/n.png']
+
+      let i = 0
+      setInterval(function () {
+        let favicon = favicons[i]
+        document.getElementById('favicon-animation').href = favicon
+        if (i < favicons.length - 1) {
+          i++
+        } else i = 0
+      }, 500)
+    </script>
+
+    <style>
+      @font-face {
+        font-family: roboto-mono-medium;
+        src: url(RobotoMono-Regular.ttf);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        transition: all 0.5s ease !important;
+      }
+
+      html,
+      body {
+        height: 100%;
+      }
+
+      p {
+        padding-bottom: 16px;
+      }
+
+      .search-for-deformation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        flex-direction: column;
+        font-family: roboto-mono-medium;
+        transition: all 1s ease-in;
+        background-color: white;
+        transition: all 0.5s ease;
+        font-size: 12px;
+      }
+
+      .search-for-deformation input {
+        border: 1px solid black;
+        border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -webkit-appearance: none;
+        appearance: none;
+        padding: 0;
+        height: 45px;
+        width: 100%;
+        text-align: center;
+        font-family: roboto-mono-medium;
+        transition: all 0.5s ease;
+      }
+
+      .search-for-deformation input:focus {
+        outline: 0;
+      }
+
+      .search-for-deformation input[type='submit'] {
+        background-color: #272727;
+        line-height: 0px;
+        color: white;
+        margin-right: 25px;
+        margin-bottom: 25px;
+        cursor: pointer;
+      }
+
+      .search-for-deformation input[type='submit']:hover {
+        background-color: black;
+      }
+
+      .search-for-deformation input[type='url']:hover {
+        background-color: whitesmoke;
+      }
+
+      .search-for-deformation input[type='button'] {
+        background-color: #7bbcff;
+        line-height: 0px;
+        color: white;
+        max-width: 100px;
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      .search-for-deformation input[type='button']:hover {
+        background-color: #3397ff;
+        line-height: 0px;
+        color: white;
+      }
+
+      .blue-button {
+        background-color: #007eff !important;
+      }
+
+      .siteName {
+        margin-right: 25px;
+      }
+
+      .search-for-deformation form {
+        display: flex;
+        width: 718px;
+      }
+
+      .search-for-deformation form p {
+        text-align: center;
+      }
+
+      .container-for-deformation {
+        opacity: 0;
+        transition: all 1s ease-in;
+        height: 100%;
+        display: none;
+      }
+
+      .information {
+        width: 718px;
+      }
+
+      .ru-yandex,
+      .ru-google,
+      .ru-bandcamp,
+      .ru-aliexpress,
+      .ru-reddit,
+      .ru-behance,
+      .ru-netflix,
+      .ru-youtube,
+      .ru-github,
+      .ru-transmediale,
+      .ru-electronica,
+      .ru-rhizome,
+      .ru-wikipedia,
+      .ru-amazon {
+        cursor: pointer;
+        color: blue;
+        padding: 4px;
+        display: inline-block;
+      }
+
+      .ru-yandex:hover,
+      .ru-google:hover,
+      .ru-bandcamp:hover,
+      .ru-aliexpress:hover,
+      .ru-reddit:hover,
+      .ru-behance:hover,
+      .ru-netflix:hover,
+      .ru-youtube:hover,
+      .ru-github:hover,
+      .ru-transmediale:hover,
+      .ru-electronica:hover,
+      .ru-rhizome:hover,
+      .ru-wikipedia:hover,
+      .ru-amazon:hover {
+        text-decoration: underline;
+      }
+
+      .en-yandex,
+      .en-google,
+      .en-bandcamp,
+      .en-aliexpress,
+      .en-reddit,
+      .en-behance,
+      .en-netflix,
+      .en-youtube,
+      .en-github,
+      .en-transmediale,
+      .en-electronica,
+      .en-rhizome,
+      .en-wikipedia,
+      .en-amazon {
+        cursor: pointer;
+        color: blue;
+        padding: 4px;
+        display: inline-block;
+      }
+
+      .en-yandex:hover,
+      .en-google:hover,
+      .en-bandcamp:hover,
+      .en-aliexpress:hover,
+      .en-reddit:hover,
+      .en-behance:hover,
+      .en-netflix:hover,
+      .en-youtube:hover,
+      .en-github:hover,
+      .en-transmediale:hover,
+      .en-electronica:hover,
+      .en-rhizome:hover,
+      .en-wikipedia:hover,
+      .en-amazon:hover {
+        text-decoration: underline;
+      }
+
+      .goal {
+        padding-bottom: 10px;
+      }
+
+      img {
+        width: auto;
+        height: auto;
+      }
+
+      .information__header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .language--off {
+        opacity: 0;
+      }
+
+      .language-container {
+        position: relative;
+      }
+
+      iframe {
+        width: 100%;
+        height: 384px;
+      }
+
+      @media screen and (max-width: 767px) {
+        iframe {
+          height: 50vw;
+        }
+
+        .search-for-deformation {
+          height: auto;
+          padding: 25px;
+          text-align: justify;
+        }
+
+        .search-for-deformation input {
+          width: 100%;
+        }
+
+        .search-for-deformation input[type='button'] {
+          background-color: #7bbcff;
+          line-height: 0px;
+          color: white;
+          max-width: 100%;
+        }
+
+        .search-for-deformation form {
+          flex-direction: column;
+          width: 100%;
+          padding-top: 8px;
+        }
+
+        .information {
+          width: 100%;
+        }
+
+        .siteName {
+          margin-right: 0;
+          margin-bottom: 25px;
+        }
+
+        .goal {
+          padding-bottom: 0;
+        }
+      }
+
+      @media screen and (max-height: 1000px) {
+        .search-for-deformation {
+          height: auto;
+          padding: 25px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Форма ввода адреса сайта -->
+
+    <div class="search-for-deformation">
+      <div class="information">
+        <p class="information__header">
+          <span style="text-decoration: underline">WEB DEFORMATION</span>
+          <span id="information__language" style="text-decoration: underline; cursor: pointer; color: blue">RU/EN</span>
+        </p>
+
+        <div class="language-container">
+          <div id="ru" class="language--off" style="display: none">
+            <p style="font-style: italic">Эстетический процессор html-кода</p>
+
+            <p>Мы живём в эпоху экранной культуры. Экран даёт нам работу и организует наш досуг. Крупнейшие веб-сервисы и их метафоры пользовательского интерфейса являются значимой частью нашей повседневности. А наша задача — делать знакомое странным.</p>
+
+            <p>
+              Данное веб-приложение получает доступ к исходному коду веб-сайта и вмешивается в логику его работы. Каждый раз это реализуется уникальной комбинацией методов. Алгоритм осуществляет порядка 1000 вторжений в код в секунду, используя для этого 369 151 937 способов.
+            </p>
+
+            <p style="font-style: italic">
+              Посвящается Netochka Nezvanova. <br />
+              В честь двадцатилетия nebula.m81.
+            </p>
+
+            <p style="text-decoration: underline; text-align: left">Подробности</p>
+
+            <p>Алгоритм также описывает все свои действия в консоли, работа которой доступна в десктопной версии сайта (F12 → Console) и выглядит так:</p>
+            <p><iframe src="https://www.youtube.com/embed/fI4BKe_HWqQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+            <p>Консоль интересна тем, что это отдельный вид интерфейса и здесь мы можем одновременно наблюдать и графическое и текстовое выражение одних и тех же процессов.</p>
+
+            <p>
+              На видео, кстати, запечатлён интересный момент. Там деформируется сайт Amazon, который, видимо, чует неладное и выдаёт плашку о том, что, мол, мы заметили подозрительную активность, введите капчу, чтобы доказать что вы не робот. Ну, а это на самом деле и есть робот,
+              который тут же расправляется с кодом страницы.
+            </p>
+
+            <p>
+              Работа посвящается двадцатилетию веб-браузера nebula.m81, созданного анонимным автором Netochka Nezvanova, который интерпретировал код веб-сайтов в <a href="https://anthology.rhizome.org/m9ndfukc-0-99" target="_blank">графику</a> и
+              <a href="http://www.medienkunstnetz.de/works/nebula/" target="_blank">звук</a>.
+            </p>
+
+            <p>Деформация реализована в виде бесконечного цикла, перезапускающего каждую миллисекунду трижды вложенную random-функцию, выбирающую элемент-свойство-значение и встраивающую вычисленную мутацию в код.</p>
+
+            <p>Количество способов деформации, указанное выше (369 151 937), получается если пересчитать все HTML-теги, их свойства и диапазон возможных значений, из которых выбирает random-функция.</p>
+
+            <p style="text-decoration: underline; text-align: left">Предуведомление о технических ограничениях</p>
+
+            <p>Некоторые сайты невозможно деформировать ввиду технических особенностей их архитектуры.</p>
+
+            <p>Мощность алгоритма достаточна, чтобы на некоторых устройствах вывести из строя весь браузер. Будьте к этому готовы, желательно закрыть соседние вкладки. Используйте lite-режим (это порядка 6 вторжений в секунду), чтобы обойти неполадки.</p>
+
+            <p>
+              Если после нажатия на кнопку "деформировать" вам выдаёт ошибку, то необходимо обновить страницу и проверить правильность введённого адреса: — адрес должен содержать "http://" или "https://" (по-умолчанию уже введён) — попробовать ввести адрес с "www" — проверить,
+              нет ли других опечаток
+            </p>
+
+            <p>Чтобы запустить деформацию заново — перезагрузите страницу.</p>
+
+            <p>
+              Ниже небольшой список веб-ресурсов, на которых работа алгоритма протестирована:<br /><br />
+              — <span class="ru-google">https://www.google.com</span><br />
+              — <span class="ru-yandex">https://yandex.ru</span><br />
+              — <span class="ru-reddit">https://www.reddit.com</span><br />
+              — <span class="ru-netflix">https://www.netflix.com</span><br />
+              — <span class="ru-bandcamp">https://bandcamp.com</span><br />
+              — <span class="ru-behance">https://www.behance.net</span><br />
+              — <span class="ru-amazon">https://www.amazon.com</span><br />
+              — <span class="ru-aliexpress">https://aliexpress.com</span><br />
+              — <span class="ru-wikipedia">https://wikipedia.org</span><br />
+              — <span class="ru-youtube">https://www.youtube.com</span><br />
+              — <span class="ru-github">https://github.com</span>
+            </p>
+
+            <p class="goal" style="text-align: center; padding-top: 15px">Цель для деформации:</p>
+            <br />
+          </div>
+
+          <div id="en" class="language--off" style="display: none">
+            <p style="font-style: italic">Aesthetic processor of html-code</p>
+
+            <p>We live in the age of screen culture. The screen gives us a job and organizes our leisure time. The largest web services and their metaphors of the user interface are an important part of our everyday life. And our task is to make the familiar — strange.</p>
+
+            <p>This web application accesses the source code of the website and interferes with its logic. Each time it is implemented by a unique combination of methods. The algorithm performs about 1000 interventions per second, using 369 151 937 methods.</p>
+
+            <p style="font-style: italic">
+              Dedicated to Netochka Nezvanova. <br />
+              In the 20th anniversary of nebula.m81.
+            </p>
+
+            <p style="text-decoration: underline; text-align: left">Details</p>
+
+            <p>The algorithm also describes all its actions in the console, which is available in the desktop version of the site (F12 → Console) and looks like this:</p>
+            <p><iframe src="https://www.youtube.com/embed/fI4BKe_HWqQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>
+
+            <p>The console is interesting because it is a specific type of interface and here we can simultaneously observe both graphical and text expression of the same processes.</p>
+
+            <p>
+              The video captured an interesting moment. It deforms the site of Amazon, which sees something strange and gives out a plaque that "we noticed suspicious activity, enter the captcha to prove that you are not a robot". Well, this is actually a robot that immediately
+              resolves the code of the page.
+            </p>
+
+            <p>
+              The work is dedicated to the 20th anniversary of the web browser nebula.m81, created by the anonymous author Netochka Nezvanova, who interpreted the code of websites into the <a href="https://anthology.rhizome.org/m9ndfukc-0-99" target="_blank">graphics</a> and
+              <a href="http://www.medienkunstnetz.de/works/nebula/" target="_blank">sound</a>.
+            </p>
+
+            <p>Deformation is realized in the form of an infinite cycle, restarting every millisecond three times nested random-function (we can call it a randomness of the third order), which selects the element-property-value and embeds the calculated mutation in the code.</p>
+
+            <p>The number of deformation methods described above (369 151 937) is obtained by recalculating all the tags, their properties and the range of possible values from which the random function chooses.</p>
+
+            <p style="text-decoration: underline; text-align: left">Notification of technical restrictions</p>
+
+            <p>Some sites cannot be deformed due to technical features of their architecture.</p>
+
+            <p>The power of the algorithm is sufficient to disable the entire browser on some devices. Be prepared for this, it is desirable to close the neighboring tabs. Use lite-mode (about 6 interventions per second) to bypass the problem.</p>
+
+            <p>
+              If after clicking on the "deformate" button you get an error, you need to refresh the page and check the correctness of the entered address: — the address must contain "http://" or "https://" (already entered by default) — try to enter the address from "www" — see
+              if there are any other typos
+            </p>
+
+            <p>To restart the deformation, reload the page.</p>
+
+            <p>
+              Below is a small list of web resources where the algorithm has been tested:<br /><br />
+              — <span class="en-google">https://www.google.com</span><br />
+              — <span class="en-yandex">https://yandex.ru</span><br />
+              — <span class="en-reddit">https://www.reddit.com</span><br />
+              — <span class="en-netflix">https://www.netflix.com</span><br />
+              — <span class="en-bandcamp">https://bandcamp.com</span><br />
+              — <span class="en-behance">https://www.behance.net</span><br />
+              — <span class="en-amazon">https://www.amazon.com</span><br />
+              — <span class="en-aliexpress">https://aliexpress.com</span><br />
+              — <span class="en-wikipedia">https://wikipedia.org</span><br />
+              — <span class="en-youtube">https://www.youtube.com</span><br />
+              — <span class="en-github">https://github.com</span>
+            </p>
+
+            <p class="goal" style="text-align: center; padding-top: 15px">Target for deformation:</p>
+            <br />
+          </div>
+        </div>
+
+        <form name="data" style="display: none">
+          <input class="siteName" type="url" name="address" placeholder="Full URL-address" value="http://" required />
+          <input id="postSiteName" type="submit" value="DEFORMATE" />
+          <input id="regime" type="button" value="Lite off" />
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Переключение языков
+
+      let clickPlaceholder = null
+
+      if (navigator.language.slice(0, 2) == 'ru') {
+        clickPlaceholder = 1
+      } else {
+        clickPlaceholder = 0
+      }
+
+      let placeholder = document.querySelector('.siteName')
+
+      function languageChange() {
+        if (!clickPlaceholder) {
+          console.log('%cWelcome to the Web Deformation.', 'color: #ff5c5c')
+          console.log("%cThe capture module is running and waiting for the victim's URL.", 'color: #bada55')
+
+          // Переводим кнопки
+          placeholder.placeholder = 'Full URL-address'
+          postSiteName.value = 'DEFORMATE'
+          clickPlaceholder = 1
+
+          // Переводим текст
+          ru.classList.add('language--off')
+          setTimeout(() => {
+            ru.style.display = 'none'
+          }, 500)
+
+          setTimeout(() => {
+            en.style.display = 'block'
+            document.querySelector('form').style.display = 'flex'
+            en.classList.remove('language--off')
+          }, 500)
+        } else {
+          console.log('%cВас приветствует Web Deformation.', 'color: #ff5c5c')
+          console.log('%cМодуль захвата запущен и ожидает URL-адрес жертвы.', 'color: #bada55')
+
+          placeholder.placeholder = 'Полный URL-адрес'
+          postSiteName.value = 'ДЕФОРМИРОВАТЬ'
+          clickPlaceholder = 0
+
+          en.classList.add('language--off')
+          setTimeout(() => {
+            en.style.display = 'none'
+          }, 500)
+
+          setTimeout(() => {
+            ru.style.display = 'block'
+            document.querySelector('form').style.display = 'flex'
+            ru.classList.remove('language--off')
+          }, 500)
+        }
+      }
+
+      window.addEventListener('load', () => {
+        console.clear()
+        languageChange()
+      })
+
+      information__language.onclick = languageChange
+    </script>
+
+    <!-- Сюда грузится захваченный контент -->
+
+    <div class="container-for-deformation"></div>
+
+    <!-- /Сюда грузится захваченный контент -->
+
+    <!-- Здесь обработка контента -->
+
+    <script>
+      // Модуль захвата
+
+      // Подсказки с адресами
+
+      let ruyandex = document.querySelector('.ru-yandex')
+      ruyandex.onclick = function () {
+        document.querySelector('.siteName').value = 'https://yandex.ru'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let rugoogle = document.querySelector('.ru-google')
+      rugoogle.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.google.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let rubandcamp = document.querySelector('.ru-bandcamp')
+      rubandcamp.onclick = function () {
+        document.querySelector('.siteName').value = 'https://bandcamp.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let rualiexpress = document.querySelector('.ru-aliexpress')
+      rualiexpress.onclick = function () {
+        document.querySelector('.siteName').value = 'https://best.aliexpress.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let ruamazon = document.querySelector('.ru-amazon')
+      ruamazon.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.amazon.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let rubehance = document.querySelector('.ru-behance')
+      rubehance.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.behance.net'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let rureddit = document.querySelector('.ru-reddit')
+      rureddit.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.reddit.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let ruyoutube = document.querySelector('.ru-youtube')
+      ruyoutube.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.youtube.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let rugithub = document.querySelector('.ru-github')
+      rugithub.onclick = function () {
+        document.querySelector('.siteName').value = 'https://github.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let ruwikipedia = document.querySelector('.ru-wikipedia')
+      ruwikipedia.onclick = function () {
+        document.querySelector('.siteName').value = 'https://wikipedia.org'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let runetflix = document.querySelector('.ru-netflix')
+      runetflix.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.netflix.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+
+      let enyandex = document.querySelector('.en-yandex')
+      enyandex.onclick = function () {
+        document.querySelector('.siteName').value = 'https://yandex.ru'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let engoogle = document.querySelector('.en-google')
+      engoogle.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.google.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let enbandcamp = document.querySelector('.en-bandcamp')
+      enbandcamp.onclick = function () {
+        document.querySelector('.siteName').value = 'https://bandcamp.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let enaliexpress = document.querySelector('.en-aliexpress')
+      enaliexpress.onclick = function () {
+        document.querySelector('.siteName').value = 'https://best.aliexpress.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let enamazon = document.querySelector('.en-amazon')
+      enamazon.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.amazon.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let enbehance = document.querySelector('.en-behance')
+      enbehance.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.behance.net'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let enreddit = document.querySelector('.en-reddit')
+      enreddit.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.reddit.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let enyoutube = document.querySelector('.en-youtube')
+      enyoutube.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.youtube.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let engithub = document.querySelector('.en-github')
+      engithub.onclick = function () {
+        document.querySelector('.siteName').value = 'https://github.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let enwikipedia = document.querySelector('.en-wikipedia')
+      enwikipedia.onclick = function () {
+        document.querySelector('.siteName').value = 'https://wikipedia.org'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+      let ennetflix = document.querySelector('.en-netflix')
+      ennetflix.onclick = function () {
+        document.querySelector('.siteName').value = 'https://www.netflix.com'
+        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      }
+
+      let siteNameString = '' // Переменная для подстановки в модуле коррекции. siteName не подходит из-за FormData формата, нужного для XHR
+
+      let lite = 1
+      let click = 1
+      regime.onclick = function () {
+        this.classList.toggle('blue-button')
+
+        if (click) {
+          lite = 200
+          click = 0
+          this.value = 'Lite on'
+          if (clickPlaceholder) {
+            console.log('%cLite-mode on', 'color: #007eff')
+          } else {
+            console.log('%cЛёгкий режим включён', 'color: #007eff')
+          }
+        } else {
+          lite = 1
+          click = 1
+          this.value = 'Lite off'
+          if (clickPlaceholder) {
+            console.log('%cLite-mode off', 'color: #7bbcff')
+          } else {
+            console.log('%cЛёгкий режим выключен', 'color: #7bbcff')
+          }
+        }
+      }
+
+      postSiteName.onclick = function (e) {
+        // По клику на "Деформировать"
+        e.preventDefault() // Чтобы не перезагружалась страница при отправке формы
+        let siteName = new FormData(document.forms.data) // Записываем введённые пользователем данные
+        for (let key of siteName.keys()) {
+          // Перебираем ключи в объекте, получаем его значение (address: xxx)
+          siteNameString = siteName.get(key) // Записываем в глобальную переменную в формате строки, а не в формате FormData
+          siteNameString = siteNameString.replace(/http:\/\/|https:\/\/|\/$/, '') // Убираем из адреса http или https для корректности последующей подстановки
+          siteNameString = siteNameString.replace(/\/\b.*$/, '') // Убираем блок букв-цифр от слэша до конца
+          siteNameString = siteNameString.replace(/\/$/, '') // Убираем сам слэш в конце
+          if (clickPlaceholder) {
+            console.log(`Capturing data at the address ${siteName.get(key)}`)
+          } else {
+            console.log(`Захват данных по адресу ${siteName.get(key)}`)
+          }
+        }
+
+        // Смена экранов
+        document.querySelector('.search-for-deformation').style.opacity = 0 // Плавно убираем прозрачность
+        // setTimeout(() => document.querySelector('.search-for-deformation').style.display = 'none', 1000); // Удаляем модуль поиска
+        setTimeout(() => document.querySelector('.search-for-deformation').remove(), 1000) // Удаляем модуль поиска
+        setTimeout(() => (document.querySelector('.container-for-deformation').style.display = 'block'), 1000) // Показываем захваченный контент
+        setTimeout(() => (document.querySelector('.container-for-deformation').style.opacity = 1), 1000) // Показываем захваченный контент
+
+        // Отправка и получение данных
+        let xhr = new XMLHttpRequest() // Создаём XHR-объект
+        xhr.open('POST', 'content.php') // Как и куда отправить
+        xhr.send(siteName) // Что отправить
+        xhr.onload = () => {
+          document.querySelector('.container-for-deformation').innerHTML = xhr.response // Как загрузится ответ от сервера, вставить в документ XHR-ответ
+          if (clickPlaceholder) {
+            console.log(`The capture is complete.`)
+          } else {
+            console.log('Захват завершён.')
+          }
+          correction() // Вызываем модуль коррекции
+        }
+        xhr.onprogress = function (event) {
+          // Мониторим количество загружаемых данных
+          if (event.lengthComputable) {
+            if (clickPlaceholder) {
+              console.log(`${event.loaded} of ${event.total} bytes received`)
+            } else {
+              console.log(`Получено ${event.loaded} из ${event.total} байт`)
+            }
+          } else {
+            if (clickPlaceholder) {
+              console.log(`${event.loaded} bytes received`)
+            } // Если в ответе нет заголовка Content-Length
+            else {
+              console.log(`Получено ${event.loaded} байт`)
+            }
+          }
+        }
+        xhr.onerror = () => {
+          if (clickPlaceholder) {
+            console.log(`Connection error`)
+          } else {
+            console.log('Ошибка соединения.')
+          } // Если связи нет
+        }
+      }
+    </script>
+
+    <script>
+      // Модуль коррекции
+
+      function correction() {
+        if (clickPlaceholder) {
+          console.log('%cThe correction module has been started.', 'color: #bada55')
+        } else {
+          console.log('%cМодуль коррекции запущен.', 'color: #bada55')
+        }
+
+        // Коррекция тегов <link>
+
+        let linkList = document.body.querySelectorAll('link[href]') // Здесь все теги link
+        if (clickPlaceholder) {
+          console.log(`Link-tags is corrected: ${linkList.length}`)
+        } else {
+          console.log(`Скорректировано тегов link: ${linkList.length}`)
+        }
+        for (let link of linkList) {
+          // Перебираем массив тегов
+          let newLink = link.cloneNode(true) // Клонируем, чтобы не испортить нормальные ссылки с абсолютными путями
+          newLink.href = newLink.href.replace('deformation.stranno.su', siteNameString) // Изменяем клонированный элемент
+          link.after(newLink) // Добавляем изменённую копию после оригинального тега
+        }
+
+        // Коррекция тегов <script>
+
+        let scriptList = document.body.querySelectorAll('script[src]') // Здесь все теги script
+        if (clickPlaceholder) {
+          console.log(`Script-tags is corrected: ${scriptList.length}`)
+        } else {
+          console.log(`Скорректировано тегов script: ${scriptList.length}`)
+        }
+
+        for (let script of scriptList) {
+          // Перебираем массив тегов
+          let newScript = script.cloneNode(true) // Клонируем, чтобы не испортить нормальные ссылки с абсолютными путями
+          newScript.src = newScript.src.replace('deformation.stranno.su', siteNameString) // Изменяем клонированный элемент
+          script.after(newScript) // Добавляем изменённую копию после оригинального тега
+        }
+
+        // Коррекция тегов <img>
+
+        let imgList = document.body.querySelectorAll('img[src]') // Здесь все теги img. Тут не клонируем, чтобы не дублировались картинки.
+        if (clickPlaceholder) {
+          console.log(`Img-tags is corrected: ${imgList.length}`)
+        } else {
+          console.log(`Скорректировано тегов img: ${imgList.length}`)
+        }
+
+        for (let img of imgList) {
+          // Перебираем массив тегов
+          img.src = img.src.replace('deformation.stranno.su', siteNameString) // Изменяем элемент
+        }
+
+        setTimeout(() => {
+          if (clickPlaceholder) {
+            console.log('Correction complete.')
+          } else {
+            console.log('Коррекция завершена.')
+          }
+        })
+        setTimeout(() => deformation())
+      }
+    </script>
+
+    <script>
+      // Модуль деформации
+
+      function deformation() {
+        if (clickPlaceholder) {
+          console.log('%cThe deformation module has been started.', 'color: #bada55')
+        } else {
+          console.log('%cМодуль деформации запущен.', 'color: #bada55')
+        }
+
+        // Все теги
+        const tags = ['img', 'a', 'p', 'span', 'button', 'input', 'h1', 'svg', 'li', 'div', 'table']
+
+        let tagNumber
+        let elements
+        let elementNumber
+
+        // Все свойства с пикселями
+        const propertiesPixels = ['width:', 'height:', 'margin:', 'padding:', 'top:', 'left:', 'font-size:', 'border:', 'line-height:', 'text-indent:']
+
+        let propertyPixelsNumber
+
+        // Диапазон рандома для пикселей
+        const maxPixels = 400
+        const minPixels = 10
+        let valuePixels // Значение свойства в пикселях
+
+        // Все свойства с Rgb
+        const propertiesRgb = ['color:', 'background:']
+
+        let propertyRgbNumber
+        const maxRgb = 255 // Предел рандома
+        // Переменные для каждого субпикселя и альфа-канала
+        let valueRed
+        let valueGreen
+        let valueBlue
+        let valueRgb
+
+        // Все значения свойства mix-blend-mode
+        const valuesBlend = ['multiply', 'difference', 'luminosity', 'saturation', 'exclusion']
+
+        let valueBlendNumber
+
+        const typeTransform = ['translate', 'rotate', 'scale']
+
+        let typeTransformNumber
+        let valueTransform
+
+        let typeOfProperty // Для выбора типа изменяемого свойства
+        let propertyWithValue // Свойство со значением
+
+        setTimeout(function () {
+          // Задержка для возможности прочитать начало логов в консоли
+          setInterval(function () {
+            // Выбираем цель
+
+            tagNumber = Math.floor(Math.random() * (tags.length - 2)) + 2 // Номер элемента массива
+            elements = document.querySelectorAll(tags[tagNumber]) // Получаем все элементы выбранного тега
+            // Если элементов нет
+            if (elements.length == 0) {
+              tagNumber = 9 // Выбираем div, который есть всегда
+              elements = document.querySelectorAll(tags[tagNumber])
+            }
+            elementNumber = Math.floor(Math.random() * elements.length) // Получаем номер случайного элемента
+
+            // Исключаем наши два divа
+            if (document.querySelectorAll(tags[tagNumber])[elementNumber].className == 'search-for-deformation' || document.querySelectorAll(tags[tagNumber])[elementNumber].className == 'container-for-deformation') {
+              elementNumber++
+            }
+
+            // console.log(`Выбранный тег = ${tags[tagNumber]}`);
+            // console.log(`Количество элементов выбранного тега = ${elements.length}`);
+            // console.log(`Номер выбранного элемента = ${elementNumber}`);
+
+            typeOfProperty = Math.floor(Math.random() * 4)
+            switch (typeOfProperty) {
+              case 0:
+                // Размеры
+
+                propertyPixelsNumber = Math.floor(Math.random() * propertiesPixels.length) // Номер элемента массива
+                valuePixels = Math.floor(Math.random() * (maxPixels - minPixels)) + minPixels // Случайное значение свойства
+                propertyWithValue = `${propertiesPixels[propertyPixelsNumber]} ${valuePixels}px` // Результат
+                // console.log(`Внедряемое свойство = ${propertyWithValue}`);
+                break
+
+              case 1:
+                // Цвета
+
+                propertyRgbNumber = Math.floor(Math.random() * propertiesRgb.length) // Номер элемента массива
+                valueRed = Math.floor(Math.random() * maxRgb) // Случайное значение свойства
+                valueGreen = Math.floor(Math.random() * maxRgb) // Случайное значение свойства
+                valueBlue = Math.floor(Math.random() * maxRgb) // Случайное значение свойства
+                propertyWithValue = `${propertiesRgb[propertyRgbNumber]} rgb(${valueRed}, ${valueGreen}, ${valueBlue})` // Результат
+                // console.log(`Внедряемое свойство = ${propertyWithValue}`);
+                break
+
+              case 2:
+                // mix-blend-mode
+
+                valueBlendNumber = Math.floor(Math.random() * 5)
+                propertyWithValue = `mix-blend-mode: ${valuesBlend[valueBlendNumber]}`
+                // console.log(`Внедряемое свойство = ${propertyWithValue}`);
+                break
+
+              case 3:
+                // transform
+
+                typeTransformNumber = Math.floor(Math.random() * 3)
+                switch (typeTransformNumber) {
+                  case 0:
+                    valueTransform = Math.floor(Math.random() * (400 - 10)) + 10
+                    propertyWithValue = `transform: ${typeTransform[typeTransformNumber]}(${valueTransform}px, ${valueTransform}px)`
+                    break
+                  case 1:
+                    valueTransform = Math.floor(Math.random() * (360 - 10)) + 10
+                    propertyWithValue = `transform: ${typeTransform[typeTransformNumber]}(${valueTransform}deg)`
+                    break
+                  case 2:
+                    valueTransform = Math.random() * (2 - 0.1) + 0.1
+                    propertyWithValue = `transform: ${typeTransform[typeTransformNumber]}(${valueTransform})`
+                    break
+                }
+                // console.log(`Внедряемое свойство = ${propertyWithValue}`);
+                break
+            }
+
+            document.querySelectorAll(tags[tagNumber])[elementNumber].style = propertyWithValue // Деформируем
+            if (clickPlaceholder) {
+              console.log(`Selected tag ${tags[tagNumber]} (${elementNumber} of ${elements.length}) and deformed with the property ${propertyWithValue}`)
+            } else {
+              console.log(`Выбран тег ${tags[tagNumber]} (${elementNumber} из ${elements.length}) и деформирован со свойством ${propertyWithValue}`)
+            }
+          }, lite)
+        }, 1500)
+      }
+    </script>
+
+    <!-- /Здесь обработка контента -->
+  </body>
+</html>
