@@ -61,6 +61,35 @@
         transition: all 0.5s ease !important;
       }
 
+      @keyframes error {
+        0% {
+          transform: translateX(0%);
+        }
+
+        25% {
+          transform: translateX(10px);
+        }
+
+        50% {
+          transform: translateX(-10px);
+        }
+
+        75% {
+          transform: translateX(0%);
+        }
+      }
+
+      .error-input {
+        background: #ffd9d9;
+        border: 1px solid red !important;
+        transition: all 2s ease !important;
+        animation: error 1s ease;
+      }
+
+      /*.error-input::placeholder {*/
+      /*    color: black;*/
+      /*}*/
+
       html,
       body {
         height: 100%;
@@ -112,6 +141,14 @@
 
       .search-for-deformation input[type='submit']:hover {
         background-color: black;
+      }
+
+      .search-for-deformation input[type='submit']:disabled {
+        opacity: 0.4;
+      }
+
+      .search-for-deformation input[type='submit']:disabled:hover {
+        background-color: #666666;
       }
 
       .search-for-deformation input[type='url']:hover {
@@ -372,7 +409,7 @@
 
             <p>Чтобы запустить деформацию заново — перезагрузите страницу.</p>
 
-            <p>
+            <p class="sites">
               Ниже небольшой список веб-ресурсов, на которых работа алгоритма протестирована:<br /><br />
               — <span class="ru-google">https://www.google.com</span><br />
               — <span class="ru-yandex">https://yandex.ru</span><br />
@@ -460,6 +497,7 @@
         <form name="data" style="display: none">
           <input class="siteName" type="url" name="address" placeholder="Full URL-address" value="http://" required />
           <input id="postSiteName" type="submit" value="DEFORMATE" />
+
           <input id="regime" type="button" value="Lite off" />
         </form>
       </div>
@@ -541,117 +579,35 @@
 
       // Подсказки с адресами
 
-      let ruyandex = document.querySelector('.ru-yandex')
-      ruyandex.onclick = function () {
-        document.querySelector('.siteName').value = 'https://yandex.ru'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let rugoogle = document.querySelector('.ru-google')
-      rugoogle.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.google.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let rubandcamp = document.querySelector('.ru-bandcamp')
-      rubandcamp.onclick = function () {
-        document.querySelector('.siteName').value = 'https://bandcamp.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let rualiexpress = document.querySelector('.ru-aliexpress')
-      rualiexpress.onclick = function () {
-        document.querySelector('.siteName').value = 'https://best.aliexpress.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let ruamazon = document.querySelector('.ru-amazon')
-      ruamazon.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.amazon.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let rubehance = document.querySelector('.ru-behance')
-      rubehance.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.behance.net'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let rureddit = document.querySelector('.ru-reddit')
-      rureddit.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.reddit.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let ruyoutube = document.querySelector('.ru-youtube')
-      ruyoutube.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.youtube.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let rugithub = document.querySelector('.ru-github')
-      rugithub.onclick = function () {
-        document.querySelector('.siteName').value = 'https://github.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let ruwikipedia = document.querySelector('.ru-wikipedia')
-      ruwikipedia.onclick = function () {
-        document.querySelector('.siteName').value = 'https://wikipedia.org'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let runetflix = document.querySelector('.ru-netflix')
-      runetflix.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.netflix.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
+      let sites = [...document.querySelectorAll('.sites span')]
+
+      sites.forEach((site) => {
+        site.addEventListener('click', () => {
+          document.querySelector('#postSiteName').disabled = false
+          document.querySelector('.siteName').value = site.innerText
+          window.scrollTo({ top: 9999, behavior: 'smooth' })
+        })
+      })
+
+      // Валидация формы
+
+      function validateUrl(value) {
+        let expression = /^((http(s?)?):\/\/)?([wW]{3}\.)?[a-zA-Z0-9\-.]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/g
+        let regexp = new RegExp(expression)
+        return regexp.test(value)
       }
 
-      let enyandex = document.querySelector('.en-yandex')
-      enyandex.onclick = function () {
-        document.querySelector('.siteName').value = 'https://yandex.ru'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let engoogle = document.querySelector('.en-google')
-      engoogle.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.google.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let enbandcamp = document.querySelector('.en-bandcamp')
-      enbandcamp.onclick = function () {
-        document.querySelector('.siteName').value = 'https://bandcamp.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let enaliexpress = document.querySelector('.en-aliexpress')
-      enaliexpress.onclick = function () {
-        document.querySelector('.siteName').value = 'https://best.aliexpress.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let enamazon = document.querySelector('.en-amazon')
-      enamazon.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.amazon.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let enbehance = document.querySelector('.en-behance')
-      enbehance.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.behance.net'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let enreddit = document.querySelector('.en-reddit')
-      enreddit.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.reddit.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let enyoutube = document.querySelector('.en-youtube')
-      enyoutube.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.youtube.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let engithub = document.querySelector('.en-github')
-      engithub.onclick = function () {
-        document.querySelector('.siteName').value = 'https://github.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let enwikipedia = document.querySelector('.en-wikipedia')
-      enwikipedia.onclick = function () {
-        document.querySelector('.siteName').value = 'https://wikipedia.org'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
-      let ennetflix = document.querySelector('.en-netflix')
-      ennetflix.onclick = function () {
-        document.querySelector('.siteName').value = 'https://www.netflix.com'
-        window.scrollTo({ top: 9999, behavior: 'smooth' })
-      }
+      // Изначально отправить ничего нельзя
+      document.querySelector('#postSiteName').disabled = true
+
+      document.querySelector('.siteName').addEventListener('input', () => {
+        let url = document.querySelector('.siteName').value
+        if (validateUrl(url)) {
+          document.querySelector('#postSiteName').disabled = false
+        } else {
+          document.querySelector('#postSiteName').disabled = true
+        }
+      })
 
       let siteNameString = '' // Переменная для подстановки в модуле коррекции. siteName не подходит из-за FormData формата, нужного для XHR
 
@@ -698,26 +654,42 @@
           }
         }
 
-        // Смена экранов
-        document.querySelector('.search-for-deformation').style.opacity = 0 // Плавно убираем прозрачность
-        // setTimeout(() => document.querySelector('.search-for-deformation').style.display = 'none', 1000); // Удаляем модуль поиска
-        setTimeout(() => document.querySelector('.search-for-deformation').remove(), 1000) // Удаляем модуль поиска
-        setTimeout(() => (document.querySelector('.container-for-deformation').style.display = 'block'), 1000) // Показываем захваченный контент
-        setTimeout(() => (document.querySelector('.container-for-deformation').style.opacity = 1), 1000) // Показываем захваченный контент
-
         // Отправка и получение данных
         let xhr = new XMLHttpRequest() // Создаём XHR-объект
         xhr.open('POST', 'content.php') // Как и куда отправить
         xhr.send(siteName) // Что отправить
         xhr.onload = () => {
-          document.querySelector('.container-for-deformation').innerHTML = xhr.response // Как загрузится ответ от сервера, вставить в документ XHR-ответ
-          if (clickPlaceholder) {
-            console.log(`The capture is complete.`)
+          let text = xhr.response
+          if (text.indexOf('file_get_contents') === -1) {
+            // Смена экранов
+            document.querySelector('.search-for-deformation').style.opacity = 0 // Плавно убираем прозрачность
+            // setTimeout(() => document.querySelector('.search-for-deformation').style.display = 'none', 1000); // Удаляем модуль поиска
+            setTimeout(() => document.querySelector('.search-for-deformation').remove(), 1000) // Удаляем модуль поиска
+            setTimeout(() => (document.querySelector('.container-for-deformation').style.display = 'block'), 1000) // Показываем захваченный контент
+            setTimeout(() => (document.querySelector('.container-for-deformation').style.opacity = 1), 1000) // Показываем захваченный контент
+
+            document.querySelector('.container-for-deformation').innerHTML = xhr.response // Как загрузится ответ от сервера, вставить в документ XHR-ответ
+            if (clickPlaceholder) {
+              console.log(`The capture is complete.`)
+            } else {
+              console.log('Захват завершён.')
+            }
+            correction() // Вызываем модуль коррекции
           } else {
-            console.log('Захват завершён.')
+            document.querySelector('.siteName').value = ''
+            document.querySelector('.siteName').classList.add('error-input')
+            setTimeout(() => {
+              document.querySelector('.siteName').classList.remove('error-input')
+            }, 2000)
+
+            if (clickPlaceholder) {
+              document.querySelector('.siteName').placeholder = 'This address does not exist'
+            } else {
+              document.querySelector('.siteName').placeholder = 'Адреса не существует'
+            }
           }
-          correction() // Вызываем модуль коррекции
         }
+
         xhr.onprogress = function (event) {
           // Мониторим количество загружаемых данных
           if (event.lengthComputable) {
