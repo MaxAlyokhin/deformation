@@ -467,7 +467,7 @@
 
             <p>To restart the deformation, reload the page.</p>
 
-            <p>
+            <p class="sites">
               Below is a small list of web resources where the algorithm has been tested:<br /><br />
               — <span class="en-google">https://www.google.com</span><br />
               — <span class="en-yandex">https://yandex.ru</span><br />
@@ -501,10 +501,14 @@
 
       let clickPlaceholder = null
 
-      if (navigator.language.slice(0, 2) == 'ru') {
-        clickPlaceholder = 1
+      const langMarkerFromURL = document.location.search.slice(1)
+
+      if (langMarkerFromURL === 'ru') {
+        clickPlaceholder = true
+      } else if (langMarkerFromURL === 'en') {
+        clickPlaceholder = false
       } else {
-        clickPlaceholder = 0
+        clickPlaceholder = 'ru' == navigator.language.slice(0, 2) ? true : false
       }
 
       let placeholder = document.querySelector('.siteName')
@@ -573,7 +577,6 @@
       // Подсказки с адресами
 
       let sites = [...document.querySelectorAll('.sites span')]
-
       sites.forEach((site) => {
         site.addEventListener('click', () => {
           document.querySelector('#postSiteName').disabled = false
